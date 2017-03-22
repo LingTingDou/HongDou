@@ -1,0 +1,202 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MusicModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Music_List">
+          <Key>
+            <PropertyRef Name="MusicID" />
+          </Key>
+          <Property Name="MusicID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MusicName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="TypeID" Type="int" Nullable="false" />
+          <Property Name="SingerID" Type="int" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="EditTime" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Music_Singer">
+          <Key>
+            <PropertyRef Name="SingerID" />
+          </Key>
+          <Property Name="SingerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SingerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="EditTime" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Music_Type">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreateTime" Type="datetime" Nullable="false" />
+          <Property Name="EditTime" Type="datetime" Nullable="false" />
+          <Property Name="Status" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Music_List_Music_Singer">
+          <End Role="Music_Type" Type="Self.Music_Type" Multiplicity="1" />
+          <End Role="Music_List" Type="Self.Music_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Music_Type">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Music_List">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MusicModelStoreContainer">
+          <EntitySet Name="Music_List" EntityType="Self.Music_List" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Music_Singer" EntityType="Self.Music_Singer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Music_Type" EntityType="Self.Music_Type" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Music_List_Music_Singer" Association="Self.FK_Music_List_Music_Singer">
+            <End Role="Music_Type" EntitySet="Music_Type" />
+            <End Role="Music_List" EntitySet="Music_List" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MusicModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Music_List">
+          <Key>
+            <PropertyRef Name="MusicID" />
+          </Key>
+          <Property Name="MusicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MusicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="SingerID" Type="Int32" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Music_Singer" Relationship="Self.FK_Music_List_Music_Singer" FromRole="Music_List" ToRole="Music_Singer" />
+          <NavigationProperty Name="Music_Type" Relationship="MusicModel.FK_Music_List_Music_Singer1" FromRole="Music_List" ToRole="Music_Type" />
+        </EntityType>
+        <EntityType Name="Music_Singer">
+          <Key>
+            <PropertyRef Name="SingerID" />
+          </Key>
+          <Property Name="SingerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SingerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Music_List" Relationship="Self.FK_Music_List_Music_Singer" FromRole="Music_Singer" ToRole="Music_List" />
+        </EntityType>
+        <EntityType Name="Music_Type">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Music_List" Relationship="MusicModel.FK_Music_List_Music_Singer1" FromRole="Music_Type" ToRole="Music_List" />
+        </EntityType>
+        <Association Name="FK_Music_List_Music_Singer">
+          <End Role="Music_Singer" Type="Self.Music_Singer" Multiplicity="1" />
+          <End Role="Music_List" Type="Self.Music_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Music_Singer">
+              <PropertyRef Name="SingerID" />
+            </Principal>
+            <Dependent Role="Music_List">
+              <PropertyRef Name="SingerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MusicEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Music_List" EntityType="Self.Music_List" />
+          <EntitySet Name="Music_Singer" EntityType="Self.Music_Singer" />
+          <EntitySet Name="Music_Type" EntityType="Self.Music_Type" />
+          <AssociationSet Name="FK_Music_List_Music_Singer" Association="Self.FK_Music_List_Music_Singer">
+            <End Role="Music_Singer" EntitySet="Music_Singer" />
+            <End Role="Music_List" EntitySet="Music_List" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Music_List_Music_Singer1" Association="MusicModel.FK_Music_List_Music_Singer1">
+            <End Role="Music_Type" EntitySet="Music_Type" />
+            <End Role="Music_List" EntitySet="Music_List" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Music_List_Music_Singer1">
+          <End Type="MusicModel.Music_Type" Role="Music_Type" Multiplicity="1" />
+          <End Type="MusicModel.Music_List" Role="Music_List" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Music_Type">
+              <PropertyRef Name="TypeID" />
+            </Principal>
+            <Dependent Role="Music_List">
+              <PropertyRef Name="TypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MusicModelStoreContainer" CdmEntityContainer="MusicEntities">
+          <EntitySetMapping Name="Music_List">
+            <EntityTypeMapping TypeName="MusicModel.Music_List">
+              <MappingFragment StoreEntitySet="Music_List">
+                <ScalarProperty Name="MusicID" ColumnName="MusicID" />
+                <ScalarProperty Name="MusicName" ColumnName="MusicName" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="SingerID" ColumnName="SingerID" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="EditTime" ColumnName="EditTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Music_Singer">
+            <EntityTypeMapping TypeName="MusicModel.Music_Singer">
+              <MappingFragment StoreEntitySet="Music_Singer">
+                <ScalarProperty Name="SingerID" ColumnName="SingerID" />
+                <ScalarProperty Name="SingerName" ColumnName="SingerName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="EditTime" ColumnName="EditTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Music_Type">
+            <EntityTypeMapping TypeName="MusicModel.Music_Type">
+              <MappingFragment StoreEntitySet="Music_Type">
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="EditTime" ColumnName="EditTime" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
