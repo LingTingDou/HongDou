@@ -7,26 +7,22 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HongDouWeb
+namespace HongDouWeb.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Music_Type
+    public partial class Music_List
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Music_Type()
-        {
-            this.Music_List = new HashSet<Music_List>();
-        }
-    
+        public int MusicID { get; set; }
+        public string MusicName { get; set; }
         public int TypeID { get; set; }
-        public string TypeName { get; set; }
+        public int SingerID { get; set; }
         public System.DateTime CreateTime { get; set; }
         public System.DateTime EditTime { get; set; }
         public int Status { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Music_List> Music_List { get; set; }
+        public virtual Music_Singer Music_Singer { get; set; }
+        public virtual Music_Type Music_Type { get; set; }
     }
 }

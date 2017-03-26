@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace HongDouWeb
+namespace HongDouWeb.Models
 {
     using System;
     using System.Data.Entity;

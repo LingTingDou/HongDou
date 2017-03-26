@@ -149,6 +149,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\FirstController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OnLineTestController.cs" />
@@ -156,28 +157,28 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Music.Context.cs">
+    <Compile Include="Models\Music.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Music.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Music.cs">
+    <Compile Include="Models\Music.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
-    <Compile Include="Music.Designer.cs">
+    <Compile Include="Models\Music.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Music.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Music_List.cs">
+    <Compile Include="Models\Music_List.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
-    <Compile Include="Music_Singer.cs">
+    <Compile Include="Models\Music_Singer.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
-    <Compile Include="Music_Type.cs">
+    <Compile Include="Models\Music_Type.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -192,12 +193,12 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\First\img\rocket.svg" />
-    <Content Include="Music.Context.tt">
+    <Content Include="Models\Music.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Music.edmx</DependentUpon>
       <LastGenOutput>Music.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Music.tt">
+    <Content Include="Models\Music.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Music.edmx</DependentUpon>
       <LastGenOutput>Music.cs</LastGenOutput>
@@ -207,13 +208,14 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="Music.edmx">
+    <EntityDeploy Include="Models\Music.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Music.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Music.edmx.diagram">
+    <Content Include="Models\Music.edmx.diagram">
       <DependentUpon>Music.edmx</DependentUpon>
     </Content>
+    <Content Include="Controllers\ViewPage1.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -246,9 +248,11 @@
     <Content Include="Views\First\Index.cshtml" />
     <Content Include="Views\First\A.cshtml" />
     <Content Include="Views\Music\Index.cshtml" />
+    <Content Include="Views\Music\CreateMusic.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Common\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

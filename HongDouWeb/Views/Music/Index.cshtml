@@ -14,6 +14,9 @@
 </head>
 <body>
     <div class="container">
+        <p></p>
+        <a href="/Music/CreateMusic">创建新的歌曲</a>
+        <div></div>
         <div class="row">
             <div class="col-md-12">
                 @{
@@ -30,7 +33,7 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr class="bg-warning">
+                                    <tr class="bg-info">
                                         <td>@item.Music_Type.TypeName</td>
                                         <td>@item.Music_Singer.SingerName</td>
                                         <td>@item.MusicName</td>
