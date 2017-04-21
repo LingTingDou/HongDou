@@ -25,8 +25,9 @@ namespace HongDouWeb.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Music_List> Music_List { get; set; }
         public virtual DbSet<Music_Singer> Music_Singer { get; set; }
         public virtual DbSet<Music_Type> Music_Type { get; set; }
+        public virtual DbSet<view_music_singer_type> view_music_singer_type { get; set; }
+        public virtual DbSet<Music_List> Music_List { get; set; }
     }
 }

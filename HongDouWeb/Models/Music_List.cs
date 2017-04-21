@@ -21,8 +21,5 @@ namespace HongDouWeb.Models
         public System.DateTime CreateTime { get; set; }
         public System.DateTime EditTime { get; set; }
         public int Status { get; set; }
-    
-        public virtual Music_Singer Music_Singer { get; set; }
-        public virtual Music_Type Music_Type { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿@model IEnumerable<HongDouWeb.Music_List>
-
-@{
+﻿@{
     Layout = null;
 }
 <!DOCTYPE html>
@@ -11,6 +9,7 @@
     <title>Index</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/CSS/Music/main.css" rel="stylesheet" />
+    <link href="~/Pager/index.css" rel="stylesheet" />
 </head>
 <body>
     <div class="container">
@@ -19,33 +18,84 @@
         <div></div>
         <div class="row">
             <div class="col-md-12">
-                @{
-                    if (Model != null && Model.Count() > 0)
-                    {
-                        <table class="table table-striped table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>歌曲类型</th>
-                                    <th>歌手</th>
-                                    <th>歌曲名称</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                    <tr class="bg-info">
-                                        <td>@item.Music_Type.TypeName</td>
-                                        <td>@item.Music_Singer.SingerName</td>
-                                        <td>@item.MusicName</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    }
-                }
+                <table class="table table-striped table-hover table-bordered t">
+                    <thead>
+                        <tr>
+                            <th>歌曲类型</th>
+                            <th>歌手</th>
+                            <th>歌曲名称</th>
+                        </tr>
+                    </thead>
+                    <tbody id="result"></tbody>
+                </table>
+                <div class="page" id="pageHtml">
+                </div>
             </div>
-            @*<div class="col-md-3 bg-gray"></div>*@
         </div>
     </div>
 </body>
 </html>
+<script src="~/Js/jquery-2.2.3.min.js"></script>
+<script src="~/Pager/pageUtil-3.1.1.js"></script>
+
+<script>
+
+
+    var hourPage = new PAGE({
+        maxResults: 10,       			//每页显示条数
+        pageName: 'page',
+        maxResultsName: 'maxResults',
+        url: '/Music/SelectMusic_List',//请求地址
+        pageListHtmlId: 'result', 			//分页列表数据显示位置
+        pageId: 'pageHtml',
+        data: function (e) {
+            return {
+                //"replyStatus": $("#slReplyStatus").val(),
+                //"completeStatus": $("#slCompleteStatus").val(),
+                //"begTime": $("#txtBeginTime").val(),
+                //"endTime": $("#txtEndTime").val()
+            };
+        },//传递参数为方法体 返回json类型数据 e:分页器本身对象
+        pageInfoCss: { index: true, go: false, type: 'index' },//分页样式布局
+        returns: function (e, e1) {//回调函数  e:data e1:分页器本身对象
+            console.log("dddd")
+            console.debug(e);
+            console.debug(e1);
+            e1.pageCount = e.totalRecords;
+
+            console.log(e.totalRecords)
+            $('#' + e1.pageListHtmlId).append('');
+            $(e.list).each(function (i) {
+               
+                var $html = "<tr>";
+                $html += "<td>" + this.MusicName + "</td>";
+                $html += "<td>" + this.SingerName + "</td>";
+                $html += "<td>" + this.TypeName + "</td>";
+
+                $html += "</tr>";
+
+                $('#' + e1.pageListHtmlId).append($html);
+            });
+            if (e1.page == 1) {
+                $(".table").addClass("t");
+            }
+            else {
+                $(".table").removeClass("t");
+            }
+        }
+    });
+    $(function () {
+        hourPage.submit();
+        $("#jb_seachbtn").click(function () {
+            hourPage.page = 1;
+            hourPage.submit();
+        });
+    });
+
+    $("#jb_report").click(function () {
+        var replyStatus = $("#slReplyStatus").val();
+        var completeStatus = $("#slCompleteStatus").val();
+        window.location.href = "/Base/Report?replyStatus=" + replyStatus + "&completeStatus=" + completeStatus;
+    });
+
+</script>

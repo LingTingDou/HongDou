@@ -37,142 +37,129 @@
           <Property Name="EditTime" Type="datetime" Nullable="false" />
           <Property Name="Status" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK_Music_List_Music_Singer">
-          <End Role="Music_Type" Type="Self.Music_Type" Multiplicity="1" />
-          <End Role="Music_List" Type="Self.Music_List" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Music_Type">
-              <PropertyRef Name="TypeID" />
-            </Principal>
-            <Dependent Role="Music_List">
-              <PropertyRef Name="TypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“Music.dbo.view_music_singer_type”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="view_music_singer_type">
+          <Key>
+            <PropertyRef Name="TypeName" />
+            <PropertyRef Name="SingerName" />
+            <PropertyRef Name="MusicName" />
+          </Key>
+          <Property Name="TypeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SingerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MusicName" Type="nvarchar" MaxLength="200" Nullable="false" />
+        </EntityType>
         <EntityContainer Name="MusicModelStoreContainer">
           <EntitySet Name="Music_List" EntityType="Self.Music_List" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Music_Singer" EntityType="Self.Music_Singer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Music_Type" EntityType="Self.Music_Type" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Music_List_Music_Singer" Association="Self.FK_Music_List_Music_Singer">
-            <End Role="Music_Type" EntitySet="Music_Type" />
-            <End Role="Music_List" EntitySet="Music_List" />
-          </AssociationSet>
+          <EntitySet Name="view_music_singer_type" EntityType="Self.view_music_singer_type" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [view_music_singer_type].[TypeName] AS [TypeName], 
+    [view_music_singer_type].[SingerName] AS [SingerName], 
+    [view_music_singer_type].[MusicName] AS [MusicName]
+    FROM [dbo].[view_music_singer_type] AS [view_music_singer_type]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MusicModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Music_List">
-          <Key>
-            <PropertyRef Name="MusicID" />
-          </Key>
-          <Property Name="MusicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="MusicName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TypeID" Type="Int32" Nullable="false" />
-          <Property Name="SingerID" Type="Int32" Nullable="false" />
-          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="EditTime" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Music_Singer" Relationship="Self.FK_Music_List_Music_Singer" FromRole="Music_List" ToRole="Music_Singer" />
-          <NavigationProperty Name="Music_Type" Relationship="MusicModel.FK_Music_List_Music_Singer1" FromRole="Music_List" ToRole="Music_Type" />
-        </EntityType>
+        <EntityContainer Name="MusicEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Music_Singer" EntityType="MusicModel.Music_Singer" />
+          <EntitySet Name="Music_Type" EntityType="MusicModel.Music_Type" />
+          <EntitySet Name="view_music_singer_type" EntityType="MusicModel.view_music_singer_type" />
+          <EntitySet Name="Music_List" EntityType="MusicModel.Music_List" />
+        </EntityContainer>
         <EntityType Name="Music_Singer">
           <Key>
             <PropertyRef Name="SingerID" />
           </Key>
           <Property Name="SingerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SingerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SingerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EditTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Music_List" Relationship="Self.FK_Music_List_Music_Singer" FromRole="Music_Singer" ToRole="Music_List" />
         </EntityType>
         <EntityType Name="Music_Type">
           <Key>
             <PropertyRef Name="TypeID" />
           </Key>
           <Property Name="TypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TypeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EditTime" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Music_List" Relationship="MusicModel.FK_Music_List_Music_Singer1" FromRole="Music_Type" ToRole="Music_List" />
         </EntityType>
-        <Association Name="FK_Music_List_Music_Singer">
-          <End Role="Music_Singer" Type="Self.Music_Singer" Multiplicity="1" />
-          <End Role="Music_List" Type="Self.Music_List" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Music_Singer">
-              <PropertyRef Name="SingerID" />
-            </Principal>
-            <Dependent Role="Music_List">
-              <PropertyRef Name="SingerID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="MusicEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Music_List" EntityType="Self.Music_List" />
-          <EntitySet Name="Music_Singer" EntityType="Self.Music_Singer" />
-          <EntitySet Name="Music_Type" EntityType="Self.Music_Type" />
-          <AssociationSet Name="FK_Music_List_Music_Singer" Association="Self.FK_Music_List_Music_Singer">
-            <End Role="Music_Singer" EntitySet="Music_Singer" />
-            <End Role="Music_List" EntitySet="Music_List" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Music_List_Music_Singer1" Association="MusicModel.FK_Music_List_Music_Singer1">
-            <End Role="Music_Type" EntitySet="Music_Type" />
-            <End Role="Music_List" EntitySet="Music_List" />
-          </AssociationSet>
-        </EntityContainer>
-        <Association Name="FK_Music_List_Music_Singer1">
-          <End Type="MusicModel.Music_Type" Role="Music_Type" Multiplicity="1" />
-          <End Type="MusicModel.Music_List" Role="Music_List" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Music_Type">
-              <PropertyRef Name="TypeID" />
-            </Principal>
-            <Dependent Role="Music_List">
-              <PropertyRef Name="TypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="view_music_singer_type">
+          <Key>
+            <PropertyRef Name="TypeName" />
+            <PropertyRef Name="SingerName" />
+            <PropertyRef Name="MusicName" />
+          </Key>
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SingerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MusicName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Music_List">
+          <Key>
+            <PropertyRef Name="MusicID" />
+          </Key>
+          <Property Name="MusicID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MusicName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="TypeID" Type="Int32" Nullable="false" />
+          <Property Name="SingerID" Type="Int32" Nullable="false" />
+          <Property Name="CreateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EditTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="MusicModelStoreContainer" CdmEntityContainer="MusicEntities">
-          <EntitySetMapping Name="Music_List">
-            <EntityTypeMapping TypeName="MusicModel.Music_List">
-              <MappingFragment StoreEntitySet="Music_List">
-                <ScalarProperty Name="MusicID" ColumnName="MusicID" />
-                <ScalarProperty Name="MusicName" ColumnName="MusicName" />
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="SingerID" ColumnName="SingerID" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="EditTime" ColumnName="EditTime" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Music_Singer">
             <EntityTypeMapping TypeName="MusicModel.Music_Singer">
               <MappingFragment StoreEntitySet="Music_Singer">
-                <ScalarProperty Name="SingerID" ColumnName="SingerID" />
-                <ScalarProperty Name="SingerName" ColumnName="SingerName" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="EditTime" ColumnName="EditTime" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EditTime" ColumnName="EditTime" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="SingerName" ColumnName="SingerName" />
+                <ScalarProperty Name="SingerID" ColumnName="SingerID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Music_Type">
             <EntityTypeMapping TypeName="MusicModel.Music_Type">
               <MappingFragment StoreEntitySet="Music_Type">
-                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
-                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
-                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
-                <ScalarProperty Name="EditTime" ColumnName="EditTime" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EditTime" ColumnName="EditTime" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="view_music_singer_type">
+            <EntityTypeMapping TypeName="MusicModel.view_music_singer_type">
+              <MappingFragment StoreEntitySet="view_music_singer_type">
+                <ScalarProperty Name="MusicName" ColumnName="MusicName" />
+                <ScalarProperty Name="SingerName" ColumnName="SingerName" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Music_List">
+            <EntityTypeMapping TypeName="MusicModel.Music_List">
+              <MappingFragment StoreEntitySet="Music_List">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EditTime" ColumnName="EditTime" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="SingerID" ColumnName="SingerID" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+                <ScalarProperty Name="MusicName" ColumnName="MusicName" />
+                <ScalarProperty Name="MusicID" ColumnName="MusicID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
