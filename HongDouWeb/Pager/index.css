@@ -1,0 +1,79 @@
+﻿@charset "utf-8";
+/*
+ *Creation Date: 2017/04/18
+ *Author: HongDou
+ *Descriptions: 分页
+ */
+
+
+li{list-style:none}
+/*表单公共样式*/
+input,select{
+	padding-left: 5px;
+	width: 126px;
+	height: 25px;
+	box-sizing: border-box;
+	border: 1px solid #d8d8d8;
+}
+
+/*分页条pgae*/
+.page {
+	float: right;
+	margin-top: 20px;
+	overflow: hidden;
+}
+.page li {
+	float: left;
+	margin-right: 10px;
+	font-size: 1.2em;
+}
+.page li:last-child{
+	margin-right: 0;
+}
+.page  li a {
+	display: block;
+	height: 28px;
+	line-height: 28px;
+	padding: 0 10px 0 10px;
+	text-decoration: none;
+	border: 1px solid #ddd;
+	text-align: center;
+    cursor:pointer;
+}
+.page ul li span {
+	display: block;
+	height: 28px;
+	line-height: 28px;
+	padding: 0 10px 0 10px;
+	text-decoration: none;
+	border: 1px solid #ddd;
+	text-align: center;
+    cursor:pointer;
+}
+.page .on a, .page li:hover a {
+	color: #fff;
+	border: 1px solid #2775ec;
+	background-color: #2775ec;
+}
+
+.page .thisclass, .page li:hover span {
+	color: #fff;
+	border: 1px solid #2775ec;
+	background-color: #2775ec;
+}
+.thisclass
+{
+display: block;
+	height: 28px;
+	line-height: 28px;
+	padding: 0 10px 0 10px;
+	text-decoration: none;
+	border: 1px solid #ddd;
+	text-align: center;
+}
+
+/*.page .thisclass/*, .page li:hover a {
+	color: #fff;
+	border: 1px solid #2775ec;
+	background-color: #2775ec;
+}*/
