@@ -62,13 +62,26 @@ namespace HongDouWeb.DAL
             return PageHelper<Music_List>.SelectData(pageSize, pageIndex, returnField, "*", table, " where 1=1 " + strWhere);
         }
 
-        public List<Music_List> SelectMusicList(int pageIndx, int pageSize, Expression<Func<Music_List, bool>> pred,out int totalPage, out int totalCount)
+        public List<Music_List_m> SelectMusicList(int pageIndx, int pageSize, Expression<Func<Music_List_m, bool>> pred,
+            out int totalPage, out int totalCount)
         {
             //List<Music_List> list = .Skip((pageIndx - 1)); 谓词
 
-            var q = db.Music_List.Where(pred);
+            var q = db.Music_List
+
+                .Join(db.Music_Singer, l => l.SingerID, s => s.SingerID, (l, s) => new { l, s })
+
+               .Join(db.Music_Type, l => l.l.TypeID, t => t.TypeID, (l, t) => new {l,t})
+
+                .Select(p => new Music_List_m
+                { MusicName =p.l.l.MusicName,SingerName=p.l.s.SingerName,TypeName=p.t.TypeName })
+
+                .Where(pred);
+
             totalCount = q.Count();
+
             totalPage = 0;
+
             if (totalCount > 0)
             {
                 var remainder = totalCount % pageSize;
@@ -82,7 +95,7 @@ namespace HongDouWeb.DAL
                     .Take(pageSize)
                     .ToList();
             }
-            return new List<Music_List>();
+            return new List<Music_List_m>();
 
 
         }

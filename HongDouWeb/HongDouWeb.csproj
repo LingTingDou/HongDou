@@ -178,6 +178,7 @@
     <Compile Include="Models\Music_List.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Music_List.m.cs" />
     <Compile Include="Models\Music_Singer.cs">
       <DependentUpon>Music.tt</DependentUpon>
     </Compile>

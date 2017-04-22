@@ -18,7 +18,6 @@ namespace HongDouWeb.Controllers
         // GET: Music
         public ActionResult Index()
         {
-            // return View(ms.SelectList());
             return View();
         }
 
@@ -27,7 +26,7 @@ namespace HongDouWeb.Controllers
         public JsonResult SelectMusic_List()
         {
 
-            PageModel<Music_List> page = new PageModel<Music_List>();
+            PageModel<Music_List_m> page = new PageModel<Music_List_m>();
 
             int pageSize = Convert.ToInt32(Request.QueryString["maxResults"]);
 
@@ -37,7 +36,9 @@ namespace HongDouWeb.Controllers
 
             //Expression<Func<Music_List, bool>> pred = x => true;// x.MusicName== "C6FC6EEB-D3CF-479D-8DB5-F5CD73320EB3"
             // Expression<Func<Music_List, bool>> pred = x => "rere".Equals(x.MusicName);
-            Expression<Func<Music_List, bool>> pred = x => true;
+            Expression<Func<Music_List_m, bool>> pred = x => true;
+
+            
            
 
             var list = ms.SelectMusicList(pageIndex, pageSize, pred, out totalPage, out totalCount);
