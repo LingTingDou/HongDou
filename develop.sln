@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F82A1C76-D529-4AD1-9CF4-7C37BAFD0E71}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{C7808714-ED24-44B6-83A7-3A9EA6858A68}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HongDou.Infrasturcture.Data", "HongDou.Infrasturcture.Data\HongDou.Infrasturcture.Data.csproj", "{C0BF0C78-F105-4E89-B272-61C249AE97B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C0BF0C78-F105-4E89-B272-61C249AE97B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0BF0C78-F105-4E89-B272-61C249AE97B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0BF0C78-F105-4E89-B272-61C249AE97B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0BF0C78-F105-4E89-B272-61C249AE97B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C0BF0C78-F105-4E89-B272-61C249AE97B1} = {F82A1C76-D529-4AD1-9CF4-7C37BAFD0E71}
+	EndGlobalSection
+EndGlobal
