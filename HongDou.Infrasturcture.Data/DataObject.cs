@@ -1,6 +1,6 @@
 ﻿namespace HongDou.Infrasturcture.Data
 {
-    public abstract partial class IntIDDataObject : BaseDataObject<int>
+    public abstract partial class DataObject : BaseDataObject<int>
     {
         public override bool Equals(BaseDataObject<int> other)
         {
